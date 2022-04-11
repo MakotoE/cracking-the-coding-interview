@@ -1,86 +1,79 @@
 package cracking_the_coding_interview
 
 import (
+	"github.com/MakotoE/cracking-the-coding-interview/sll"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-type Node struct {
-	next *Node
-	item int
-}
-
 // Deletes the item at given index. The given index is valid and is not 0 or the last item.
-func deleteMiddleNode(head *Node, index int) {
+func deleteMiddleNode(head *sll.Node, index int) {
 	parent := head
 	for i := 0; i < index-1; i++ {
-		parent = parent.next
+		parent = parent.Next
 	}
 
-	parent.next = parent.next.next
+	parent.Next = parent.Next.Next
 }
 
 func TestDeleteMiddleNode(t *testing.T) {
 	tests := []struct {
-		head     *Node
+		head     *sll.Node
 		index    int
-		expected *Node
+		expected *sll.Node
 	}{
 		{
-			&Node{
-				&Node{
-					&Node{nil, 2},
-					1,
+			&sll.Node{
+				Next: &sll.Node{
+					Next: &sll.Node{Item: 2},
+					Item: 1,
 				},
-				0,
+				Item: 0,
 			},
 			1,
-			&Node{
-				&Node{
-					nil,
-					2,
-				},
-				0,
+			&sll.Node{
+				Next: &sll.Node{Item: 2},
+				Item: 0,
 			},
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{nil, 3},
-						2,
+			&sll.Node{
+				Next: &sll.Node{
+					Next: &sll.Node{
+						Next: &sll.Node{Item: 3},
+						Item: 2,
 					},
-					1,
+					Item: 1,
 				},
-				0,
+				Item: 0,
 			},
 			1,
-			&Node{
-				&Node{
-					&Node{nil, 3},
-					2,
+			&sll.Node{
+				Next: &sll.Node{
+					Next: &sll.Node{Item: 3},
+					Item: 2,
 				},
-				0,
+				Item: 0,
 			},
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{nil, 3},
-						2,
+			&sll.Node{
+				Next: &sll.Node{
+					Next: &sll.Node{
+						Next: &sll.Node{Item: 3},
+						Item: 2,
 					},
-					1,
+					Item: 1,
 				},
-				0,
+				Item: 0,
 			},
 			2,
-			&Node{
-				&Node{
-					&Node{nil, 3},
-					1,
+			&sll.Node{
+				Next: &sll.Node{
+					Next: &sll.Node{Item: 3},
+					Item: 1,
 				},
-				0,
+				Item: 0,
 			},
 		},
 	}
