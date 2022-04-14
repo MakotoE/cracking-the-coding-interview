@@ -55,36 +55,73 @@ func isIntersecting(a *Node, b *Node) bool {
 	return false
 }
 
+func listLength(list *Node) int {
+	result := 0
+	curr := list
+	for curr != nil {
+		curr = curr.next
+		result++
+	}
+	return result
+}
+
+func isIntersecting2(a *Node, b *Node) bool {
+	difference := listLength(a) - listLength(b)
+
+	aStart := a
+	bStart := b
+	if difference < 0 {
+		for i := 0; i < -difference; i++ {
+			bStart = bStart.next
+		}
+	} else if difference > 0 {
+		for i := 0; i < difference; i++ {
+			aStart = aStart.next
+		}
+	}
+
+	for aStart != nil {
+		if aStart == bStart {
+			return true
+		}
+
+		aStart = aStart.next
+		bStart = bStart.next
+	}
+
+	return false
+}
+
 func TestIsIntersecting(t *testing.T) {
 	{
-		assert.False(t, isIntersecting(nil, nil))
-		assert.False(t, isIntersecting(&Node{}, &Node{}))
+		assert.False(t, isIntersecting2(nil, nil))
+		assert.False(t, isIntersecting2(&Node{}, &Node{}))
 	}
 	{
 		a := &Node{}
 		b := &Node{next: a}
-		assert.True(t, isIntersecting(a, b))
-		assert.True(t, isIntersecting(b, a))
+		assert.True(t, isIntersecting2(a, b))
+		assert.True(t, isIntersecting2(b, a))
 	}
 	{
 		a := &Node{}
 		b := &Node{next: a}
 		c := &Node{next: a}
-		assert.True(t, isIntersecting(b, c))
-		assert.True(t, isIntersecting(c, b))
+		assert.True(t, isIntersecting2(b, c))
+		assert.True(t, isIntersecting2(c, b))
 	}
 	{
 		a := &Node{next: &Node{}}
 		b := &Node{next: a}
 		c := &Node{next: a}
-		assert.True(t, isIntersecting(b, c))
-		assert.True(t, isIntersecting(c, b))
+		assert.True(t, isIntersecting2(b, c))
+		assert.True(t, isIntersecting2(c, b))
 	}
 	{
 		a := &Node{}
 		b := &Node{next: &Node{next: a}}
 		c := &Node{next: a}
-		assert.True(t, isIntersecting(b, c))
-		assert.True(t, isIntersecting(c, b))
+		assert.True(t, isIntersecting2(b, c))
+		assert.True(t, isIntersecting2(c, b))
 	}
 }
