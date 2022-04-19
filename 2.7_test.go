@@ -8,7 +8,7 @@ import (
 )
 
 // getPointers returns all pointers to nodes.
-func getPointers(list *Node) []uintptr {
+func getPointers(list *IntNode) []uintptr {
 	var result []uintptr
 
 	curr := list
@@ -37,7 +37,7 @@ func (u UIntSlice) Swap(i int, j int) {
 }
 
 // Returns true if the linked lists have an intersection by reference.
-func isIntersecting(a *Node, b *Node) bool {
+func isIntersecting(a *IntNode, b *IntNode) bool {
 	aPointers := getPointers(a)
 	sort.Sort(UIntSlice(aPointers))
 
@@ -55,7 +55,7 @@ func isIntersecting(a *Node, b *Node) bool {
 	return false
 }
 
-func listLength(list *Node) int {
+func listLength(list *IntNode) int {
 	result := 0
 	curr := list
 	for curr != nil {
@@ -65,7 +65,7 @@ func listLength(list *Node) int {
 	return result
 }
 
-func isIntersecting2(a *Node, b *Node) bool {
+func isIntersecting2(a *IntNode, b *IntNode) bool {
 	difference := listLength(a) - listLength(b)
 
 	aStart := a
@@ -95,32 +95,32 @@ func isIntersecting2(a *Node, b *Node) bool {
 func TestIsIntersecting(t *testing.T) {
 	{
 		assert.False(t, isIntersecting2(nil, nil))
-		assert.False(t, isIntersecting2(&Node{}, &Node{}))
+		assert.False(t, isIntersecting2(&IntNode{}, &IntNode{}))
 	}
 	{
-		a := &Node{}
-		b := &Node{next: a}
+		a := &IntNode{}
+		b := &IntNode{next: a}
 		assert.True(t, isIntersecting2(a, b))
 		assert.True(t, isIntersecting2(b, a))
 	}
 	{
-		a := &Node{}
-		b := &Node{next: a}
-		c := &Node{next: a}
+		a := &IntNode{}
+		b := &IntNode{next: a}
+		c := &IntNode{next: a}
 		assert.True(t, isIntersecting2(b, c))
 		assert.True(t, isIntersecting2(c, b))
 	}
 	{
-		a := &Node{next: &Node{}}
-		b := &Node{next: a}
-		c := &Node{next: a}
+		a := &IntNode{next: &IntNode{}}
+		b := &IntNode{next: a}
+		c := &IntNode{next: a}
 		assert.True(t, isIntersecting2(b, c))
 		assert.True(t, isIntersecting2(c, b))
 	}
 	{
-		a := &Node{}
-		b := &Node{next: &Node{next: a}}
-		c := &Node{next: a}
+		a := &IntNode{}
+		b := &IntNode{next: &IntNode{next: a}}
+		c := &IntNode{next: a}
 		assert.True(t, isIntersecting2(b, c))
 		assert.True(t, isIntersecting2(c, b))
 	}

@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func listToArray(head *Node) []int {
+func listToArray(head *IntNode) []int {
 	if head == nil {
 		return nil
 	}
@@ -21,7 +21,7 @@ func listToArray(head *Node) []int {
 }
 
 // palindromeSingleLinked returns true if the linked list is a palindrome.
-func palindromeSingleLinked(head *Node) bool {
+func palindromeSingleLinked(head *IntNode) bool {
 	items := listToArray(head)
 
 	for i := 0; i < len(items)/2; i++ {
@@ -85,7 +85,7 @@ func palindromeDoubleLinked(head *DLNode) bool {
 
 func TestPalindromeSingleLinked(t *testing.T) {
 	tests := []struct {
-		head     *Node
+		head     *IntNode
 		expected bool
 	}{
 		{
@@ -93,20 +93,20 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			true,
 		},
 		{
-			&Node{nil, 0},
+			&IntNode{nil, 0},
 			true,
 		},
 		{
-			&Node{
-				&Node{nil, 1},
+			&IntNode{
+				&IntNode{nil, 1},
 				0,
 			},
 			false,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
 						nil,
 						0,
 					},
@@ -117,9 +117,9 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			true,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
 						nil,
 						2,
 					},
@@ -130,10 +130,10 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			false,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{
 							nil,
 							0,
 						},
@@ -146,10 +146,10 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			true,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{
 							nil,
 							0,
 						},
@@ -162,11 +162,11 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			false,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{
-							&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{
+							&IntNode{
 								nil,
 								0,
 							},
@@ -181,11 +181,11 @@ func TestPalindromeSingleLinked(t *testing.T) {
 			true,
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{
-							&Node{
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{
+							&IntNode{
 								nil,
 								0,
 							},

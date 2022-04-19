@@ -5,13 +5,15 @@ import (
 	"testing"
 )
 
-type Node struct {
-	next *Node
-	item int
+type Node[T any] struct {
+	next *Node[T]
+	item T
 }
 
+type IntNode = Node[int]
+
 // Deletes the item at given index. The given index is valid and is not 0 or the last item.
-func deleteMiddleNode(head *Node, index int) {
+func deleteMiddleNode(head *IntNode, index int) {
 	parent := head
 	for i := 0; i < index-1; i++ {
 		parent = parent.next
@@ -22,21 +24,21 @@ func deleteMiddleNode(head *Node, index int) {
 
 func TestDeleteMiddleNode(t *testing.T) {
 	tests := []struct {
-		head     *Node
+		head     *IntNode
 		index    int
-		expected *Node
+		expected *IntNode
 	}{
 		{
-			&Node{
-				&Node{
-					&Node{nil, 2},
+			&IntNode{
+				&IntNode{
+					&IntNode{nil, 2},
 					1,
 				},
 				0,
 			},
 			1,
-			&Node{
-				&Node{
+			&IntNode{
+				&IntNode{
 					nil,
 					2,
 				},
@@ -44,10 +46,10 @@ func TestDeleteMiddleNode(t *testing.T) {
 			},
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{nil, 3},
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{nil, 3},
 						2,
 					},
 					1,
@@ -55,19 +57,19 @@ func TestDeleteMiddleNode(t *testing.T) {
 				0,
 			},
 			1,
-			&Node{
-				&Node{
-					&Node{nil, 3},
+			&IntNode{
+				&IntNode{
+					&IntNode{nil, 3},
 					2,
 				},
 				0,
 			},
 		},
 		{
-			&Node{
-				&Node{
-					&Node{
-						&Node{nil, 3},
+			&IntNode{
+				&IntNode{
+					&IntNode{
+						&IntNode{nil, 3},
 						2,
 					},
 					1,
@@ -75,9 +77,9 @@ func TestDeleteMiddleNode(t *testing.T) {
 				0,
 			},
 			2,
-			&Node{
-				&Node{
-					&Node{nil, 3},
+			&IntNode{
+				&IntNode{
+					&IntNode{nil, 3},
 					1,
 				},
 				0,
