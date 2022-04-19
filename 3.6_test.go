@@ -22,11 +22,11 @@ type Animal struct {
 }
 
 func (a *AnimalShelter) enqueue(animal Animal) {
-	curr := a.head
-	for curr != nil {
-		curr = curr.next
+	curr := &a.head
+	for *curr != nil {
+		curr = &(*curr).next
 	}
-	curr = &Node[Animal]{item: animal}
+	*curr = &Node[Animal]{item: animal}
 }
 
 func (a *AnimalShelter) dequeueAny() (Animal, bool) {
@@ -39,13 +39,30 @@ func (a *AnimalShelter) dequeueAny() (Animal, bool) {
 	return tmp, true
 }
 
-//func (a *AnimalShelter) dequeueDog() Animal {
-//
-//}
-//
-//func (a *AnimalShelter) dequeueCat() Animal {
-//
-//}
+func (a *AnimalShelter) dequeueType(animalType AnimalType) (Animal, bool) {
+	parent := a.head
+	if parent == nil {
+		return Animal{}, false
+	}
+
+	if parent.item.AnimalType == animalType {
+		tmp := parent.item
+		parent = parent.next
+		return tmp, true
+	}
+
+	for parent.next != nil {
+		if parent.next.item.AnimalType == Dog {
+			tmp := parent.next.item
+			parent.next = parent.next.next
+			return tmp, true
+		}
+
+		parent = parent.next
+	}
+
+	return Animal{}, false
+}
 
 func TestAnimalShelter(t *testing.T) {
 	{
@@ -82,5 +99,68 @@ func TestAnimalShelter(t *testing.T) {
 		result, ok = shelter.dequeueAny()
 		assert.True(t, ok)
 		assert.Equal(t, c, result)
+	}
+	{
+		shelter := &AnimalShelter{}
+		_, ok := shelter.dequeueType(Dog)
+		assert.False(t, ok)
+
+		a := Animal{
+			AnimalType: Cat,
+			ID:         0,
+		}
+		shelter.enqueue(a)
+
+		_, ok = shelter.dequeueType(Dog)
+		assert.False(t, ok)
+
+		b := Animal{
+			AnimalType: Dog,
+			ID:         1,
+		}
+		shelter.enqueue(b)
+
+		result, ok := shelter.dequeueType(Dog)
+		assert.True(t, ok)
+		assert.Equal(t, b, result)
+
+		c := Animal{
+			AnimalType: Dog,
+			ID:         2,
+		}
+		shelter.enqueue(c)
+
+		d := Animal{
+			AnimalType: Cat,
+			ID:         3,
+		}
+		shelter.enqueue(d)
+
+		result, ok = shelter.dequeueType(Dog)
+		assert.True(t, ok)
+		assert.Equal(t, c, result)
+
+		e := Animal{
+			AnimalType: Cat,
+			ID:         4,
+		}
+		shelter.enqueue(e)
+
+		f := Animal{
+			AnimalType: Dog,
+			ID:         5,
+		}
+		shelter.enqueue(f)
+
+		result, ok = shelter.dequeueType(Dog)
+		assert.True(t, ok)
+		assert.Equal(t, f, result)
+
+		_, ok = shelter.dequeueType(Dog)
+		assert.False(t, ok)
+
+		result, ok = shelter.dequeueType(Cat)
+		assert.True(t, ok)
+		assert.Equal(t, a, result)
 	}
 }
