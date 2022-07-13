@@ -3,6 +3,7 @@ namespace c_sharp
     [TestClass]
     public class Question1_2
     {
+        // Returns true if b is a permutation of a.
         static bool IsPermutation(string a, string b)
         {
             var map = new int[0xa0];
@@ -29,7 +30,7 @@ namespace c_sharp
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestIsPermutation()
         {
             var tests = new (string a, string b, bool expected)[]
             {
