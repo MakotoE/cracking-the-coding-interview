@@ -1,6 +1,6 @@
 package main.java;
 
-public class Question1_9 {
+public class Q1_9 {
 	// Returns true if a is a rotation of b.
 	static boolean IsRotation(String a, String b) {
 		if (a.length() != b.length()) {
