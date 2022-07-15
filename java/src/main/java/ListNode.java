@@ -2,11 +2,11 @@ package main.java;
 
 import java.util.Objects;
 
-public class MyLinkedList {
-	MyLinkedList next;
+public class ListNode {
+	ListNode next;
 	int item;
 
-	MyLinkedList(MyLinkedList next, int item) {
+	ListNode(ListNode next, int item) {
 		this.next = next;
 		this.item = item;
 	}
@@ -19,7 +19,7 @@ public class MyLinkedList {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		MyLinkedList that = (MyLinkedList) o;
+		ListNode that = (ListNode) o;
 		return item == that.item && Objects.equals(next, that.next);
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class Q2_2 {
 	// Returns nth to last element in list if it exists.
-	static Optional<Integer> GetNthToLast(MyLinkedList list, int n) {
+	static Optional<Integer> GetNthToLast(ListNode list, int n) {
 		var curr = list;
 		int size = 0;
 		while (curr != null) {
@@ -25,11 +25,11 @@ public class Q2_2 {
 	}
 
 	static class TestCase {
-		MyLinkedList list;
+		ListNode list;
 		int n;
 		Optional<Integer> expected;
 
-		TestCase(MyLinkedList list, int n, Optional<Integer> expected) {
+		TestCase(ListNode list, int n, Optional<Integer> expected) {
 			this.list = list;
 			this.n = n;
 			this.expected = expected;
@@ -39,27 +39,27 @@ public class Q2_2 {
 	public static void main(String[] args) {
 		var tests = new TestCase[] {
 			new TestCase(
-				new MyLinkedList(null, 0),
+				new ListNode(null, 0),
 				0,
 				Optional.of(0)
 			),
 			new TestCase(
-				new MyLinkedList(null, 0),
+				new ListNode(null, 0),
 				1,
 				Optional.empty()
 			),
 			new TestCase(
-				new MyLinkedList(new MyLinkedList(null, 1), 0),
+				new ListNode(new ListNode(null, 1), 0),
 				0,
 				Optional.of(1)
 			),
 			new TestCase(
-				new MyLinkedList(new MyLinkedList(null, 1), 0),
+				new ListNode(new ListNode(null, 1), 0),
 				1,
 				Optional.of(0)
 			),
 			new TestCase(
-				new MyLinkedList(new MyLinkedList(null, 1), 0),
+				new ListNode(new ListNode(null, 1), 0),
 				2,
 				Optional.empty()
 			),

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Q2_1 {
 	// Removes duplicates from list.
-	static void RemoveDuplicates(MyLinkedList list) {
+	static void RemoveDuplicates(ListNode list) {
 		HashSet<Integer> set = new HashSet<>(List.of(list.item));
 
 		var curr = list;
@@ -20,10 +20,10 @@ public class Q2_1 {
 	}
 
 	static class TestCase {
-		MyLinkedList list;
-		MyLinkedList expected;
+		ListNode list;
+		ListNode expected;
 
-		TestCase(MyLinkedList list, MyLinkedList expected) {
+		TestCase(ListNode list, ListNode expected) {
 			this.list = list;
 			this.expected = expected;
 		}
@@ -32,33 +32,33 @@ public class Q2_1 {
 	public static void main(String[] args) {
 		var tests = new TestCase[] {
 			new TestCase(
-				new MyLinkedList(null, 0),
-				new MyLinkedList(null, 0)
+				new ListNode(null, 0),
+				new ListNode(null, 0)
 			),
 			new TestCase(
-				new MyLinkedList(new MyLinkedList(null, 1), 0),
-				new MyLinkedList(new MyLinkedList(null, 1), 0)
+				new ListNode(new ListNode(null, 1), 0),
+				new ListNode(new ListNode(null, 1), 0)
 			),
 			new TestCase(
-				new MyLinkedList(new MyLinkedList(null, 0), 0),
-				new MyLinkedList(null, 0)
+				new ListNode(new ListNode(null, 0), 0),
+				new ListNode(null, 0)
 			),
 			new TestCase(
-				new MyLinkedList(
-					new MyLinkedList(new MyLinkedList(null, 0), 1),
+				new ListNode(
+					new ListNode(new ListNode(null, 0), 1),
 					0
 				),
-				new MyLinkedList(new MyLinkedList(null, 1), 0)
+				new ListNode(new ListNode(null, 1), 0)
 			),
 			new TestCase(
-				new MyLinkedList(
-					new MyLinkedList(
-						new MyLinkedList(new MyLinkedList(null, 1), 0),
+				new ListNode(
+					new ListNode(
+						new ListNode(new ListNode(null, 1), 0),
 						1
 					),
 					0
 				),
-				new MyLinkedList(new MyLinkedList(null, 1), 0)
+				new ListNode(new ListNode(null, 1), 0)
 			),
 		};
 
